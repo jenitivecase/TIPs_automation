@@ -22,9 +22,10 @@ library(dplyr)
 library(tidyr)
 library(openxlsx)
 
-setwd("S:/Projects/DLM Dropbox/TIP pages/TIP workgroup - copies only")
+work_dir <- "S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/"
+setwd(work_dir)
 
-filename <- "ELA 01112017 a.xlsx"
+filename <- "S:/Projects/DLM Dropbox/TIP pages/TIP workgroup - copies only/ELA 01112017 a.xlsx"
 TIPs_file <- read.xlsx(filename)
 
 new_names <- make.names(names(TIPs_file))
@@ -43,7 +44,7 @@ if(grepl("^ELA", filename, ignore.case = FALSE)){
   subject <- "SCI"
 }
 
-extra <- NULL
+extra <- ""
 if(grepl("BR", filename)){
   extra <- "BR"
 } else if(grepl("BVI", filename)){
@@ -105,50 +106,14 @@ if(extra == "BR"){
 
 TIPs_file$filename <- paste0(subject, TIPs_file$Form, extra)
 
+for(file in 1:nrow(TIPs_file)){
+  rmarkdown::render('S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/r_script.Rmd',  # file 2
+                    output_file =  paste("report_", car, '_', Sys.Date(), ".html", sep=''), 
+                    output_dir = 'S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/reports')
+}
 
 
-LaTeX_code <- paste0(
-  "\begin{longtable}{@{}ll@{}}
-  \toprule 
-  \begin{minipage}[t]{0.48\columnwidth}%
-  \raggedright\strut \includegraphics[width=2.52604in,height=1.03542in,bb = 0 0 200 100, draft, type=eps]{media/image1}\strut %
-  \end{minipage} & %
-  \begin{minipage}[t]{0.48\columnwidth}%
-  \raggedright\strut 
-  
-  \section{", TIPs_file$Operational.Form.Name, "}
-  
-  \label{operational_form_name}
-  
-  Testlet Information Page: ", TIPs_file$filename, "\strut %
-  \end{minipage}\tabularnewline
-  \bottomrule
-  \end{longtable}
-  
-  Testlet Type: ", TIPs_file$Testlet.Type ,"Number of Items: ", TIPs_file$N.of.items, "
-  
-  Materials Needed: ", TIPs_file$Materials.Needed, "
-  
-  Materials Use: ", TIPs_file$Materials.Use, "
-  
-  Suggested Substitute Materials: ", TIPs_file$Materials.Substitute, "
-  
-  \begin{longtable}{@{}l@{}}
-  \toprule 
-  \begin{minipage}[t]{0.97\columnwidth}%
-  \raggedright\strut DLM Text Title: ", TIPs_file$DLM.Text.Name, "
-  
-  Type of Text: ", TIPs_file$Type.of.Text, " Familiar or Unfamiliar? ", TIPs_file$Familiar, "
-  
-  DLM Source Book: ", TIPs_file$Sourcebook, "\strut %
-  \end{minipage}\tabularnewline
-  \bottomrule
-  \end{longtable}
-  
-  Accessibility supports NOT allowed:
-  
-  ", TIPs_file$Exclude.Support.Translation, "\n", TIPs_file$Exclude.Support.Definition, "
-  
-  Other comments: ", TIPs_file$Testlet.Information.Page.Comments, "
-  "
-)
+saveRDS(TIPs_file, "test_TIPs_file.rds")
+
+
+
