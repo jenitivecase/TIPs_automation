@@ -1,0 +1,62 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+  header-includes:
+   - \usepackage{tabu}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#comment the following two lines out when not testing
+TIPs_file <- readRDS("S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/test_TIPs_file.rds")
+i=1
+
+
+TIP_data <- TIPs_file[i,]
+
+```
+
+**Testlet Type:** `r TIP_data["Testlet.Type"]`
+
+**Number of Items:** `r TIP_data["N.of.items"]`
+
+**Materials Needed:** `r TIP_data["Materials.Needed"]`
+
+**Materials Use:** `r TIP_data["Materials.Use"]`
+
+**Suggested Substitute Materials:** `r TIP_data["Materials.Substitute"]`
+
+\hrulefill
+
+**DLM Text Title:** `r TIP_data["DLM.Text.Name"]`
+
+**Type of Text:** `r TIP_data["Type.of.Text"]`
+
+**Familiar or Unfamiliar?** `r TIP_data["Familiar"]`
+
+**DLM Source Book:** `r TIP_data["Sourcebook"]`
+
+\hrulefill
+
+\begin{center}
+\begin{tabu} to 0.8\textwidth { | X[l] | X[l] | } 
+ \hline
+ \textbf{DLM Text Title:} `r TIP_data["DLM.Text.Name"]` & \\ 
+ \textbf{Type of Text:} `r TIP_data["Type.of.Text"]`  & \textbf{Familiar?} `r TIP_data["Familiar"]` \\ 
+ \textbf{DLM Source Book:} `r TIP_data["Sourcebook"]`  &  \\ 
+ \hline
+\end{tabular}
+\end{center}
+
+**Accessibility supports NOT allowed:** 
+
+`r TIP_data["Exclude.Support.Translation"]`
+
+`r TIP_data["Exclude.Support.Definitions"]`
+
+
+**Other Comments:** `r TIP_data["Testlet.Information.Page.Comments"]`
+
+
