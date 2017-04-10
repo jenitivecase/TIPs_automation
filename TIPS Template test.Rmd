@@ -1,9 +1,8 @@
 ---
-output:
-  pdf_document: default
-  html_document: default
-  header-includes:
-   - \usepackage{tabu}
+output: 
+  pdf_document:
+    includes:
+      in_header: TIPs_style.sty
 ---
 
 ```{r setup, include=FALSE}
@@ -11,50 +10,63 @@ knitr::opts_chunk$set(echo = TRUE)
 
 #comment the following two lines out when not testing
 TIPs_file <- readRDS("S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/test_TIPs_file.rds")
-i=1
+file=1
 
 
-TIP_data <- TIPs_file[i,]
+TIP_data <- TIPs_file[file,]
 
 ```
 
+\begin{center}
+\textit{\textbf{This is a secure testing document. Do not reproduce or redistribute. Shred after use.}}
+\begin{tabu} to 1.0\textwidth {  X[l]  X[l]  } 
+ \hfill & \hfill \\
+ \multirow{2}{*}{\includegraphics{dlm_logo}} & `r TIP_data["Operational.Form.Name"]` \\[10mm] 
+ \hfill & \textbf{Testlet Information Page:} `r TIP_data["filename"]` \\[10mm]
+\end{tabu}
+\end{center}
+
+\hrulefill
+\bigskip
+
 **Testlet Type:** `r TIP_data["Testlet.Type"]`
+\medskip
 
 **Number of Items:** `r TIP_data["N.of.items"]`
+\medskip
 
 **Materials Needed:** `r TIP_data["Materials.Needed"]`
+\medskip
 
 **Materials Use:** `r TIP_data["Materials.Use"]`
+\medskip
 
 **Suggested Substitute Materials:** `r TIP_data["Materials.Substitute"]`
+\medskip
 
-\hrulefill
-
-**DLM Text Title:** `r TIP_data["DLM.Text.Name"]`
-
-**Type of Text:** `r TIP_data["Type.of.Text"]`
-
-**Familiar or Unfamiliar?** `r TIP_data["Familiar"]`
-
-**DLM Source Book:** `r TIP_data["Sourcebook"]`
-
-\hrulefill
+\renewcommand{\arraystretch}{1.5}
 
 \begin{center}
-\begin{tabu} to 0.8\textwidth { | X[l] | X[l] | } 
+\begin{tabu} to 1.0\textwidth { | X[l]  X[l] | } 
  \hline
+ \hfill & \hfill \\
  \textbf{DLM Text Title:} `r TIP_data["DLM.Text.Name"]` & \\ 
  \textbf{Type of Text:} `r TIP_data["Type.of.Text"]`  & \textbf{Familiar?} `r TIP_data["Familiar"]` \\ 
  \textbf{DLM Source Book:} `r TIP_data["Sourcebook"]`  &  \\ 
+ \hfill & \hfill \\
  \hline
-\end{tabular}
+\end{tabu}
 \end{center}
+
+\bigskip
 
 **Accessibility supports NOT allowed:** 
 
 `r TIP_data["Exclude.Support.Translation"]`
 
 `r TIP_data["Exclude.Support.Definitions"]`
+
+\bigskip
 
 
 **Other Comments:** `r TIP_data["Testlet.Information.Page.Comments"]`
