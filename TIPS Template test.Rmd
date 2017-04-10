@@ -19,10 +19,11 @@ TIP_data <- TIPs_file[file,]
 
 \begin{center}
 \textit{\textbf{This is a secure testing document. Do not reproduce or redistribute. Shred after use.}}
+\medskip
+
 \begin{tabu} to 1.0\textwidth {  X[l]  X[l]  } 
- \hfill & \hfill \\
- \multirow{2}{*}{\includegraphics{dlm_logo}} & `r TIP_data["Operational.Form.Name"]` \\[10mm] 
- \hfill & \textbf{Testlet Information Page:} `r TIP_data["filename"]` \\[10mm]
+ \multirow{2}{*}{\includegraphics[height=3cm]{dlm_logo}} & `r TIP_data["Operational.Form.Name"]` \\ [3mm]
+ \hfill & \textbf{Testlet Information Page:} `r TIP_data["filename"]` \\ [3mm]
 \end{tabu}
 \end{center}
 
