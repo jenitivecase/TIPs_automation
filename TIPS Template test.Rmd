@@ -3,6 +3,7 @@ output:
   pdf_document:
     includes:
       in_header: TIPs_style.sty
+    keep_tex: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -22,10 +23,11 @@ TIP_data <- TIPs_file[file,]
 \medskip
 
 \begin{tabu} to 1.0\textwidth {  X[l]  X[l]  } 
- \multirow{2}{*}{\includegraphics[height=3cm]{dlm_logo}} & `r TIP_data["Operational.Form.Name"]` \\ [3mm]
- \hfill & \textbf{Testlet Information Page:} `r TIP_data["filename"]` \\ [3mm]
+ \multirow{2}{*}{\includegraphics[height=3cm]{dlm_logo}} & {\textbf{\large{}`r TIP_data["Operational.Form.Name"]`}} \\ [3mm]
+ \hfill & {\textbf{Testlet Information Page: `r TIP_data["filename"]`}} \\ [3mm]
 \end{tabu}
 \end{center}
+\medskip
 
 \hrulefill
 \bigskip
