@@ -3,15 +3,15 @@ output:
   pdf_document:
     includes:
       in_header: TIPs_style.sty
-    keep_tex: yes
+    keep_tex: no
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-#comment the following two lines out when not testing
-TIPs_file <- readRDS("S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/test_TIPs_file.rds")
-file=1
+# #comment the following two lines out when not testing
+# TIPs_file <- readRDS("S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/test_TIPs_file.rds")
+# file=1
 
 
 TIP_data <- TIPs_file[file,]

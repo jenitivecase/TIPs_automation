@@ -27,6 +27,8 @@ setwd(work_dir)
 
 filename <- "S:/Projects/DLM Dropbox/TIP pages/TIP workgroup - copies only/ELA 01112017 a.xlsx"
 TIPs_file <- read.xlsx(filename)
+filename <- unlist(strsplit(filename, split = "/"))
+filename <- filename[length(filename)]
 
 new_names <- make.names(names(TIPs_file))
 new_names <- gsub("\\.\\.", "\\.", new_names)
@@ -107,8 +109,8 @@ if(extra == "BR"){
 TIPs_file$filename <- paste0(subject, TIPs_file$Form, extra)
 
 for(file in 1:nrow(TIPs_file)){
-  rmarkdown::render('S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/r_script.Rmd',  # file 2
-                    output_file =  paste("report_", car, '_', Sys.Date(), ".html", sep=''), 
+  rmarkdown::render('S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/TIPS Template test.Rmd',  
+                    output_file =  paste0(TIPs_file[file, "filename"],".pdf"), 
                     output_dir = 'S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/reports')
 }
 
