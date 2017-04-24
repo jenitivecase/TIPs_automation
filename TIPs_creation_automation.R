@@ -62,7 +62,7 @@ if(subject == "ELA"){
                                                    TIPs_file$Exclude.Support.Translation)
   
   TIPs_file$Exclude.Support.Definitions <- gsub("FALSE", 
-                                                   NA, 
+                                                "", 
                                                    TIPs_file$Exclude.Support.Definitions)
   TIPs_file$Exclude.Support.Definitions <- gsub("TRUE", 
                                                   "Do not define words for the student.", 
@@ -71,13 +71,13 @@ if(subject == "ELA"){
   for(i in 1:nrow(TIPs_file)){
     if(TIPs_file[i, Exclude.Support.Definitions] == FALSE & TIPs_file[i, Exclude.Support.Translation] == FALSE){
       TIPs_file[i, Exclude.Support.Translation] <- "None"
-      TIPs_file[i, Exclude.Support.Definitions] <- NA
+      TIPs_file[i, Exclude.Support.Definitions] <- ""
     } else {
       ifelse(TIPs_file[i, Exclude.Support.Definitions] == FALSE,
-             TIPs_file[i, Exclude.Support.Definitions] <- NA,
+             TIPs_file[i, Exclude.Support.Definitions] <- "",
              TIPs_file[i, Exclude.Support.Definitions] <- "Definitions (see \"other comments\")")
       ifelse(TIPs_file[i, Exclude.Support.Translation] == FALSE,
-             TIPs_file[i, Exclude.Support.Translation] <- NA,
+             TIPs_file[i, Exclude.Support.Translation] <- "",
              TIPs_file[i, Exclude.Support.Translation] <- "Do not translate words for this student.")
       
     }
@@ -92,7 +92,7 @@ if(subject == "ELA"){
                                                 TIPs_file$Exclude.Support.Translation)
   
   TIPs_file$Exclude.Support.Definitions <- gsub("FALSE", 
-                                                NA, 
+                                                "", 
                                                 TIPs_file$Exclude.Support.Definitions)
   TIPs_file$Exclude.Support.Definitions <- gsub("TRUE", 
                                                 "Definitions (see \"other comments\")", 
@@ -109,7 +109,7 @@ if(extra == "BR"){
 TIPs_file$filename <- paste0(subject, TIPs_file$Form, extra)
 
 for(file in 1:nrow(TIPs_file)){
-  rmarkdown::render('S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/TIPS Template test.Rmd',  
+  rmarkdown::render('S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/TIPS_ELA_Template.Rmd',  
                     output_file =  paste0(TIPs_file[file, "filename"],".pdf"), 
                     output_dir = 'S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/reports')
 }
