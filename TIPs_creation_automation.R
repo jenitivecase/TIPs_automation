@@ -13,7 +13,6 @@
 ################################################################################
 # TO DO LIST ###################################################################
 ################################################################################
-# - fix LaTeX code
 # - add checks to ensure column names come out as expected
 # - add Rally extract QC process (may be separate program?)
 ################################################################################
@@ -25,7 +24,11 @@ library(openxlsx)
 work_dir <- "S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/"
 setwd(work_dir)
 
-filename <- "S:/Projects/DLM Dropbox/TIP pages/TIP workgroup - copies only/ELA 01112017 a.xlsx"
+filename <- "S:/Projects/DLM Dropbox/TIP pages/TIP workgroup - copies only/math 011817 a.xlsx"
+
+report_out_dir <- "S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/reports"
+
+## STOP UPDATING NOW! ##########################################################
 TIPs_file <- read.xlsx(filename)
 filename <- unlist(strsplit(filename, split = "/"))
 filename <- filename[length(filename)]
@@ -38,12 +41,14 @@ new_names <- gsub("\\.$", "", new_names)
 names(TIPs_file) <- new_names
 
 subject <- NULL
-if(grepl("^ELA", filename, ignore.case = FALSE)){
+if(grepl("^ELA", filename, ignore.case = TRUE)){
   subject <- "ELA"
-} else if(grepl("^M", filename) | grepl("^Math", filename, ignore.case = FALSE)){
+} else if(grepl("^M", filename) | grepl("^Math", filename, ignore.case = TRUE)){
   subject <- "M"
-} else if(grepl("^Sci", filename , ignore.case = FALSE)){
+} else if(grepl("^Sci", filename , ignore.case = TRUE)){
   subject <- "SCI"
+} else {
+  stop("Subject not identified from filename! Please check filename formatting.")
 }
 
 extra <- ""
@@ -69,16 +74,16 @@ if(subject == "ELA"){
                                                   TIPs_file$Exclude.Support.Definitions)
 } else if(subject == "M"){
   for(i in 1:nrow(TIPs_file)){
-    if(TIPs_file[i, Exclude.Support.Definitions] == FALSE & TIPs_file[i, Exclude.Support.Translation] == FALSE){
-      TIPs_file[i, Exclude.Support.Translation] <- "None"
-      TIPs_file[i, Exclude.Support.Definitions] <- ""
+    if(TIPs_file[i, "Exclude.Support.Definitions"] == FALSE & TIPs_file[i, "Exclude.Support.Translation"] == FALSE){
+      TIPs_file[i, "Exclude.Support.Translation"] <- "None"
+      TIPs_file[i, "Exclude.Support.Definitions"] <- ""
     } else {
-      ifelse(TIPs_file[i, Exclude.Support.Definitions] == FALSE,
-             TIPs_file[i, Exclude.Support.Definitions] <- "",
-             TIPs_file[i, Exclude.Support.Definitions] <- "Definitions (see \"other comments\")")
-      ifelse(TIPs_file[i, Exclude.Support.Translation] == FALSE,
-             TIPs_file[i, Exclude.Support.Translation] <- "",
-             TIPs_file[i, Exclude.Support.Translation] <- "Do not translate words for this student.")
+      ifelse(TIPs_file[i, "Exclude.Support.Definitions"] == FALSE,
+             TIPs_file[i, "Exclude.Support.Definitions"] <- "",
+             TIPs_file[i, "Exclude.Support.Definitions"] <- "Definitions (see \"other comments\")")
+      ifelse(TIPs_file[i, "Exclude.Support.Translation"] == FALSE,
+             TIPs_file[i, "Exclude.Support.Translation"] <- "",
+             TIPs_file[i, "Exclude.Support.Translation"] <- "Do not translate words for this student.")
       
     }
   }
@@ -108,14 +113,27 @@ if(extra == "BR"){
 
 TIPs_file$filename <- paste0(subject, TIPs_file$Form, extra)
 
-for(file in 1:nrow(TIPs_file)){
-  rmarkdown::render('S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/TIPS_ELA_Template.Rmd',  
-                    output_file =  paste0(TIPs_file[file, "filename"],".pdf"), 
-                    output_dir = 'S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/reports')
-}
-
-
 saveRDS(TIPs_file, "test_TIPs_file.rds")
+
+if(subject == "ELA"){
+  for(file in 1:nrow(TIPs_file)){
+    rmarkdown::render('S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/TIPS_ELA_Template.Rmd',  
+                      output_file =  paste0(TIPs_file[file, "filename"],".pdf"), 
+                      output_dir = report_out_dir)
+  }
+} else if(subject == "M"){
+  for(file in 1:nrow(TIPs_file)){
+    rmarkdown::render('S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/TIPS_M_Template.Rmd',  
+                      output_file =  paste0(TIPs_file[file, "filename"],".pdf"), 
+                      output_dir = report_out_dir)
+  }
+} else if(subject == "SCI"){
+  for(file in 1:nrow(TIPs_file)){
+    rmarkdown::render('S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/TIPS_SCI_Template.Rmd',  
+                      output_file =  paste0(TIPs_file[file, "filename"],".pdf"), 
+                      output_dir = report_out_dir)
+  }
+} 
 
 
 

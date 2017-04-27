@@ -38,21 +38,7 @@ TIP_data <- TIPs_file[file,]
 \medskip
 
 **Suggested Substitute Materials:** `r TIP_data["Materials.Substitute"]`
-\medskip
 
-\renewcommand{\arraystretch}{1.5}
-
-\begin{center}
-\begin{tabu} to 1.0\textwidth { | X[l]  X[l] | } 
- \hline
- \hfill & \hfill \\
- \textbf{DLM Text Title:} `r TIP_data["DLM.Text.Name"]` & \\ 
- \textbf{Type of Text:} `r TIP_data["Type.of.Text"]`  & \textbf{Familiar?} `r TIP_data["Familiar"]` \\ 
- \textbf{DLM Source Book:} `r TIP_data["Sourcebook"]`  &  \\ 
- \hfill & \hfill \\
- \hline
-\end{tabu}
-\end{center}
 
 \bigskip
 
