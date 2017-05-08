@@ -7,14 +7,7 @@
 # 3. Inserts values into LaTeX code
 # 4. Uses LaTeX code to output PDFs
 ################################################################################
-# Code written/adapted April 6, 2017 by Jennifer Brussow 
-################################################################################
-
-################################################################################
-# TO DO LIST ###################################################################
-################################################################################
-# - add checks to ensure column names come out as expected
-# - add Rally extract QC process (may be separate program?)
+# Code written April 2017 by Jennifer Brussow 
 ################################################################################
 
 library(dplyr)
@@ -113,7 +106,7 @@ if(extra == "BR"){
 
 TIPs_file$filename <- paste0(subject, TIPs_file$Form, extra)
 
-saveRDS(TIPs_file, "test_TIPs_file.rds")
+# saveRDS(TIPs_file, "test_TIPs_file.rds")
 
 if(subject == "ELA"){
   for(file in 1:nrow(TIPs_file)){
