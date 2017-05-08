@@ -9,10 +9,16 @@
 ################################################################################
 # Code written April 2017 by Jennifer Brussow 
 ################################################################################
+source("S:/Projects/DLM Secure/Psychometric Procedures & Scripts/options.R")
 
-library(dplyr)
-library(tidyr)
-library(openxlsx)
+needed_packages <- c("rmarkdown")
+for(i in 1:length(needed_packages)){
+  haspackage <- require(needed_packages[i], character.only = TRUE)
+  if(haspackage == FALSE){
+    install.packages(needed_packages[i])
+  }
+  library(needed_packages[i], character.only = TRUE)
+}
 
 filename <- "S:/Projects/DLM Dropbox/TIP pages/TIP workgroup - copies only/math 011817 a.xlsx"
 
@@ -33,9 +39,9 @@ names(TIPs_file) <- new_names
 subject <- NULL
 if(grepl("^ELA", filename, ignore.case = TRUE)){
   subject <- "ELA"
-} else if(grepl("^M", filename) | grepl("^Math", filename, ignore.case = TRUE)){
+} else if(grepl("^M",  filename, ignore.case = TRUE)){
   subject <- "M"
-} else if(grepl("^Sci", filename , ignore.case = TRUE)){
+} else if(grepl("^Sci", filename, ignore.case = TRUE)){
   subject <- "SCI"
 } else {
   stop("Subject not identified from filename! Please check filename formatting.")
