@@ -14,9 +14,6 @@ library(dplyr)
 library(tidyr)
 library(openxlsx)
 
-work_dir <- "S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/"
-setwd(work_dir)
-
 filename <- "S:/Projects/DLM Dropbox/TIP pages/TIP workgroup - copies only/math 011817 a.xlsx"
 
 report_out_dir <- "S:/Projects/DLM Secure/Psychometrician Asst Projects/Jennifer Projects/TIPs Automation/reports"
